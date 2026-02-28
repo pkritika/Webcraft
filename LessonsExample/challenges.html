@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebCraft: Portfolio Challenges</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    line-height: 1.7;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1a1f2e 0%, #16213e 50%, #0f3460 100%);
+    padding: 60px 40px;
+    text-align: center;
+    border-bottom: 2px solid #2d3748;
+  }
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #60a5fa, #a78bfa, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+  .module {
+    background: #1e2433;
+    border: 1px solid #2d3748;
+    border-radius: 16px;
+    margin-bottom: 48px;
+    overflow: hidden;
+  }
+  .module-header {
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid #2d3748;
+  }
+  .module-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  .m1 .module-badge { background: linear-gradient(135deg, #3b4fd4, #6366f1); }
+  .m2 .module-badge { background: linear-gradient(135deg, #be185d, #e879a0); }
+  .m3 .module-badge { background: linear-gradient(135deg, #0e7490, #22d3ee); }
+  .m4 .module-badge { background: linear-gradient(135deg, #b45309, #fbbf24); }
+  .m5 .module-badge { background: linear-gradient(135deg, #065f46, #34d399); }
+  .m6 .module-badge { background: linear-gradient(135deg, #5b21b6, #a78bfa); }
+  .m7 .module-badge { background: linear-gradient(135deg, #1e40af, #60a5fa); }
+  .module-title h2 { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; }
+  .module-title .subtitle { font-size: 0.85rem; color: #64748b; margin-top: 2px; }
+  .module-body { padding: 28px 32px; }
+  .what-building {
+    background: #0f172a;
+    border-left: 4px solid #60a5fa;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+  }
+  .what-building strong { color: #60a5fa; display: block; margin-bottom: 4px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #64748b;
+    margin-bottom: 12px;
+    margin-top: 24px;
+  }
+  .steps { list-style: none; }
+  .steps li {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    font-size: 0.93rem;
+    color: #cbd5e1;
+  }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #2d3748;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background: #0f172a;
+    color: #a78bfa;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+  pre {
+    background: #0d1117;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: #e2e8f0;
+    margin-top: 8px;
+  }
+  .comment { color: #6b7280; }
+  .tag { color: #60a5fa; }
+  .attr { color: #f59e0b; }
+  .val { color: #34d399; }
+  .insert { color: #fde047; background: #1c1a00; border-radius: 3px; padding: 0 3px; }
+  .expected {
+    background: #0d1f0d;
+    border: 1px solid #1a4d1a;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.92rem;
+    color: #86efac;
+    margin-top: 8px;
+  }
+  .bonus {
+    background: #1c1433;
+    border: 1px solid #4c1d95;
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 0.92rem;
+    color: #c4b5fd;
+    margin-top: 8px;
+  }
+  .bonus strong { color: #a78bfa; }
+  .divider { border: none; border-top: 1px solid #2d3748; margin: 24px 0; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🌐 WebCraft Portfolio Challenges</h1>
+  <p>7 modules, 7 sections — build a complete personal portfolio website step by step!</p>
+</div>
+
+<div class="container">
+
+<!-- MODULE 1 -->
+<div class="module m1">
+  <div class="module-header">
+    <div class="module-badge">🏠</div>
+    <div class="module-title">
+      <h2>Module 1 Portfolio Challenge: About Me Section</h2>
+      <div class="subtitle">The Web &amp; HTML Basics</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Create the very first page of your portfolio with your name, a big welcome heading, and a short paragraph about yourself.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>Create a new file called <code>index.html</code> and add the basic HTML structure: <code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, and <code>&lt;body&gt;</code>.</li>
+      <li><span class="step-num">2</span>Inside <code>&lt;head&gt;</code>, add a <code>&lt;title&gt;</code> tag with your name — this shows up in the browser tab.</li>
+      <li><span class="step-num">3</span>Inside <code>&lt;body&gt;</code>, add an <code>&lt;h1&gt;</code> with your name, an <code>&lt;h2&gt;</code> that says something like "Welcome to my portfolio!", and a <code>&lt;p&gt;</code> tag with 2–3 sentences about who you are and what you love.</li>
+      <li><span class="step-num">4</span>Add a second <code>&lt;p&gt;</code> below with your grade and one fun fact about yourself.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code</div>
+    <pre><span class="comment">&lt;!-- index.html — start here! --&gt;</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span><span class="insert">&lt;!-- ADD YOUR NAME HERE --&gt;</span><span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="insert">&lt;!-- ADD YOUR CODE HERE --&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      Your browser shows a plain white page with your name as the biggest heading at the top, a welcome message below it, and two paragraphs of text about you. The browser tab shows your name.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Add a third heading <code>&lt;h3&gt;</code> with the label "My Favourite Things" and use three <code>&lt;p&gt;</code> tags to list your top three hobbies, foods, or movies.
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 2 -->
+<div class="module m2">
+  <div class="module-header">
+    <div class="module-badge">🔗</div>
+    <div class="module-title">
+      <h2>Module 2 Portfolio Challenge: Links &amp; Styled Text</h2>
+      <div class="subtitle">Links, Colors &amp; Fonts</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Add a "Find Me Online" section with clickable links to your favourite websites, plus make your page pop with colour and custom fonts using CSS.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>Below your About Me section, add an <code>&lt;h2&gt;</code> that says "Find Me Online".</li>
+      <li><span class="step-num">2</span>Add at least three <code>&lt;a href="..."&gt;</code> links — these could be YouTube, a favourite game site, or a school project. Make each link open in a new tab using <code>target="_blank"</code>.</li>
+      <li><span class="step-num">3</span>Inside <code>&lt;head&gt;</code>, add a <code>&lt;style&gt;</code> tag. Use CSS to change the <code>body</code> background colour (try a hex code like <code>#f0f4ff</code>) and set a font family like <code>font-family: Arial, sans-serif;</code>.</li>
+      <li><span class="step-num">4</span>Change the colour of your <code>h1</code> heading using the CSS <code>color</code> property with a hex code you like. Try <code>#2d6be4</code> for a nice blue!</li>
+      <li><span class="step-num">5</span>Add a special character somewhere on your page — try a copyright symbol <code>&amp;copy;</code> at the very bottom, or a heart <code>&amp;hearts;</code> next to your name.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code (includes Module 1 output)</div>
+    <pre><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Alex's Portfolio<span class="tag">&lt;/title&gt;</span>
+  <span class="insert">&lt;!-- ADD YOUR &lt;style&gt; TAG HERE --&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="tag">&lt;h1&gt;</span>Alex Johnson<span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Welcome to my portfolio!<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Hi! I'm Alex, a 7th grader who loves coding, drawing, and video games.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;p&gt;</span>I'm in 7th grade and my fun fact is that I can solve a Rubik's cube in under 2 minutes!<span class="tag">&lt;/p&gt;</span>
+
+  <span class="insert">&lt;!-- ADD YOUR "Find Me Online" SECTION HERE --&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      Your page now has a colourful background, a styled heading in your chosen colour, and a "Find Me Online" section with clickable links. Clicking a link opens that website in a new browser tab.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Use CSS to make the link colour something other than the default blue — try <code>a { color: #e91e8c; }</code> — and also remove the underline from links using <code>text-decoration: none;</code>.
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 3 -->
+<div class="module m3">
+  <div class="module-header">
+    <div class="module-badge">🎨</div>
+    <div class="module-title">
+      <h2>Module 3 Portfolio Challenge: Skills Section</h2>
+      <div class="subtitle">Introduction to CSS</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Add a "My Skills" section and move all your CSS into its own separate stylesheet file, keeping your code neat and organised.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>Create a new file called <code>style.css</code> in the same folder as your <code>index.html</code>. Move all your CSS from the <code>&lt;style&gt;</code> tag into this file, then delete the <code>&lt;style&gt;</code> tag and replace it with <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>.</li>
+      <li><span class="step-num">2</span>In <code>index.html</code>, add a new section using a <code>&lt;div&gt;</code> tag with <code>class="skills-section"</code>. Inside it, put an <code>&lt;h2&gt;</code> saying "My Skills" and use <code>&lt;span&gt;</code> tags to label each skill (e.g. <code>&lt;span class="skill"&gt;HTML&lt;/span&gt;</code>).</li>
+      <li><span class="step-num">3</span>In <code>style.css</code>, use the class selector <code>.skills-section</code> to add a background colour and some padding to the section.</li>
+      <li><span class="step-num">4</span>Style the <code>.skill</code> class to give each skill badge a different background colour, rounded corners (<code>border-radius</code>), and some padding so they look like little chips.</li>
+      <li><span class="step-num">5</span>Give your page an <code>id="main-heading"</code> on the <code>&lt;h1&gt;</code> and style it by ID in CSS using <code>#main-heading { }</code>.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code (includes Modules 1–2 output)</div>
+    <pre><span class="comment">&lt;!-- index.html --&gt;</span>
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Alex's Portfolio<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span> <span class="attr">href</span>=<span class="val">"style.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="tag">&lt;h1</span> <span class="attr">id</span>=<span class="val">"main-heading"</span><span class="tag">&gt;</span>Alex Johnson<span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Welcome to my portfolio!<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Hi! I'm Alex, a 7th grader who loves coding, drawing, and video games.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;p&gt;</span>I'm in 7th grade and my fun fact is that I can solve a Rubik's cube in under 2 minutes!<span class="tag">&lt;/p&gt;</span>
+
+  <span class="tag">&lt;h2&gt;</span>Find Me Online<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://youtube.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span><span class="tag">&gt;</span>YouTube<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://scratch.mit.edu"</span> <span class="attr">target</span>=<span class="val">"_blank"</span><span class="tag">&gt;</span>Scratch<span class="tag">&lt;/a&gt;</span>
+
+  <span class="insert">&lt;!-- ADD YOUR SKILLS SECTION HERE --&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      Your page now has a "My Skills" section with colourful badge-style labels for each skill. Your CSS lives in its own file and the page still looks the same (or better!). Each skill chip has its own background colour and padding.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Wrap all the content above "My Skills" in a <code>&lt;div class="intro"&gt;</code> and give it a different background colour than the skills section, creating a two-tone page layout.
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 4 -->
+<div class="module m4">
+  <div class="module-header">
+    <div class="module-badge">🖼️</div>
+    <div class="module-title">
+      <h2>Module 4 Portfolio Challenge: Photo Gallery</h2>
+      <div class="subtitle">Images &amp; Media</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Add a "My Gallery" section that shows off images of things you love — hobbies, places, or your favourite things — with captions.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>Add a new <code>&lt;div class="gallery"&gt;</code> section after your Skills section with an <code>&lt;h2&gt;</code> heading "My Gallery".</li>
+      <li><span class="step-num">2</span>Add at least three images using <code>&lt;img src="..." alt="..."&gt;</code>. You can use free image URLs from the web (right-click an image → "Copy image address") or save images into your project folder. Always write a meaningful <code>alt</code> description!</li>
+      <li><span class="step-num">3</span>Below each image, add a short <code>&lt;p&gt;</code> caption describing what it shows.</li>
+      <li><span class="step-num">4</span>In <code>style.css</code>, set a <code>max-width</code> on your images so they don't stretch the whole page (try <code>max-width: 300px;</code>). Also add a CSS background image to your page header area using <code>background-image: url(...);</code>.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code (includes Modules 1–3 output)</div>
+    <pre><span class="comment">&lt;!-- index.html — add the gallery section below skills --&gt;</span>
+  ...
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"skills-section"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h2&gt;</span>My Skills<span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"skill"</span><span class="tag">&gt;</span>HTML<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"skill"</span><span class="tag">&gt;</span>CSS<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="val">"skill"</span><span class="tag">&gt;</span>Drawing<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="insert">&lt;!-- ADD YOUR GALLERY SECTION HERE --&gt;</span>
+  ...</pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      Your portfolio now has a gallery of images, each sized nicely at around 300px wide with a short caption underneath. Your page header area has a background image. All images have helpful alt text for screen readers.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Wrap each image and its caption inside a <code>&lt;div class="gallery-item"&gt;</code> and in CSS give each item a <code>border</code> and a slight <code>box-shadow</code> to make them look like photo prints.
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 5 -->
+<div class="module m5">
+  <div class="module-header">
+    <div class="module-badge">📋</div>
+    <div class="module-title">
+      <h2>Module 5 Portfolio Challenge: Resume / CV Table</h2>
+      <div class="subtitle">Imagemaps, Media &amp; Tables</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Add a "My Experience" table that acts like a mini-resume — showing school activities, achievements, and hobbies in a neat, organised grid.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>Add a new section with an <code>&lt;h2&gt;</code> saying "My Experience". Underneath, create a <code>&lt;table&gt;</code> with at least 4 rows. Use <code>&lt;tr&gt;</code> for each row, <code>&lt;th&gt;</code> for the header row (Activity, Description, Year), and <code>&lt;td&gt;</code> for the data cells.</li>
+      <li><span class="step-num">2</span>Fill your table with real things: clubs, sports, projects, awards, or classes you enjoy.</li>
+      <li><span class="step-num">3</span>Add a "What I'm Listening To" section using an HTML5 <code>&lt;audio&gt;</code> tag with <code>controls</code>. Use a free audio file URL or one saved in your project folder.</li>
+      <li><span class="step-num">4</span>Add an unordered list <code>&lt;ul&gt;</code> somewhere on the page (maybe under "My Skills") listing your top 5 favourite things, and convert your "Find Me Online" links into an ordered list <code>&lt;ol&gt;</code>.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code (includes Modules 1–4 output)</div>
+    <pre><span class="comment">&lt;!-- Add after your gallery section --&gt;</span>
+
+  <span class="insert">&lt;!-- ADD YOUR EXPERIENCE TABLE HERE --&gt;</span>
+  <span class="comment">&lt;!-- Hint: start with &lt;table&gt;&lt;tr&gt;&lt;th&gt;Activity&lt;/th&gt;... --&gt;</span>
+
+  <span class="insert">&lt;!-- ADD YOUR AUDIO PLAYER HERE --&gt;</span>
+  <span class="comment">&lt;!-- Hint: &lt;audio controls src="..."&gt;&lt;/audio&gt; --&gt;</span></pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      Your portfolio now has a table with bold header labels and neatly arranged rows of your activities. There's also a small audio player visitors can press play on. Your skills and links are now formatted as proper lists.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Add an imagemap to one of your gallery photos. Define two or three clickable regions (use <code>&lt;map&gt;</code> and <code>&lt;area&gt;</code>) that link to different websites when clicked — like different parts of a picture linking to different things.
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 6 -->
+<div class="module m6">
+  <div class="module-header">
+    <div class="module-badge">✨</div>
+    <div class="module-title">
+      <h2>Module 6 Portfolio Challenge: Styled Layout</h2>
+      <div class="subtitle">Advanced CSS</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Transform your portfolio from a plain list of sections into a properly laid-out page with a sticky header, a sidebar, and interactive hover effects.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>Wrap your entire page content in a <code>&lt;div class="page-wrapper"&gt;</code>. Then create a <code>&lt;header&gt;</code> at the top with your name and navigation links. In CSS, use <code>position: sticky; top: 0;</code> so it sticks to the top as visitors scroll.</li>
+      <li><span class="step-num">2</span>Create a two-column layout by adding a <code>&lt;div class="main-content"&gt;</code> and a <code>&lt;div class="sidebar"&gt;</code>. Use <code>float: left</code> on the main content and <code>float: right</code> on the sidebar. Set <code>width</code> on each (e.g. 65% and 30%). Move your skills badges and links into the sidebar.</li>
+      <li><span class="step-num">3</span>Add a <code>:hover</code> pseudo-class to your skill badges — change their background colour when someone hovers over them.</li>
+      <li><span class="step-num">4</span>Style your table rows with alternating colours using the <code>tr:nth-child(even)</code> selector to make the table easier to read.</li>
+      <li><span class="step-num">5</span>Use the CSS box model to add proper <code>padding</code> and <code>margin</code> around each major section so the page doesn't feel cramped.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code (includes Modules 1–5 output)</div>
+    <pre><span class="comment">&lt;!-- Restructure your existing page like this: --&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+  <span class="tag">&lt;header</span> <span class="attr">class</span>=<span class="val">"site-header"</span><span class="tag">&gt;</span>
+    <span class="insert">&lt;!-- ADD YOUR NAME + NAV LINKS HERE --&gt;</span>
+  <span class="tag">&lt;/header&gt;</span>
+
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"page-wrapper"</span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"main-content"</span><span class="tag">&gt;</span>
+      <span class="comment">&lt;!-- About Me, Gallery, Table, Audio go here --&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="val">"sidebar"</span><span class="tag">&gt;</span>
+      <span class="comment">&lt;!-- Skills + Links go here --&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+
+  <span class="tag">&lt;/div&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span></pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      Your portfolio now looks like a real website! There's a sticky navigation bar at the top, a two-column layout with main content on the left and a sidebar on the right, zebra-striped table rows, and skill badges that change colour when you hover over them.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Add a <code>z-index</code> to your sticky header (try <code>z-index: 100</code>) and give it a semi-transparent background so content "slides under" it as you scroll — use <code>background: rgba(255,255,255,0.9);</code> and add <code>backdrop-filter: blur(4px);</code> for a frosted-glass look.
+    </div>
+  </div>
+</div>
+
+<!-- MODULE 7 -->
+<div class="module m7">
+  <div class="module-header">
+    <div class="module-badge">📬</div>
+    <div class="module-title">
+      <h2>Module 7 Portfolio Challenge: Contact Form</h2>
+      <div class="subtitle">HTML Forms</div>
+    </div>
+  </div>
+  <div class="module-body">
+    <div class="what-building">
+      <strong>📌 What you're building</strong>
+      Add a "Contact Me" section at the bottom of your portfolio with a fully working HTML form so visitors can send you their name, email, and a message.
+    </div>
+
+    <div class="section-label">Steps</div>
+    <ul class="steps">
+      <li><span class="step-num">1</span>At the bottom of your <code>main-content</code> div, add an <code>&lt;h2&gt;</code> "Contact Me" and a <code>&lt;form&gt;</code> tag. Set <code>method="post"</code> on the form (even though we're not connecting it to a server yet — great practice!).</li>
+      <li><span class="step-num">2</span>Add a text input for the visitor's name: <code>&lt;input type="text" name="name" placeholder="Your name"&gt;</code>. Include a <code>&lt;label&gt;</code> above it.</li>
+      <li><span class="step-num">3</span>Add an email input: <code>&lt;input type="email" name="email" placeholder="your@email.com"&gt;</code>. The browser will automatically check it looks like an email address!</li>
+      <li><span class="step-num">4</span>Add a subject dropdown using <code>&lt;select&gt;</code> with at least three <code>&lt;option&gt;</code> choices — like "Just saying hi!", "Question about your portfolio", and "Collaboration idea".</li>
+      <li><span class="step-num">5</span>Add a <code>&lt;textarea name="message" rows="5"&gt;</code> for a longer message, then a submit button: <code>&lt;input type="submit" value="Send Message"&gt;</code>. Style the form in CSS to make it look neat — add padding, a border, and a background colour to the form container.</li>
+    </ul>
+
+    <hr class="divider">
+    <div class="section-label">Starter Code (includes Modules 1–6 output)</div>
+    <pre><span class="comment">&lt;!-- Add inside your main-content div, after the table --&gt;</span>
+
+  <span class="tag">&lt;h2&gt;</span>Contact Me<span class="tag">&lt;/h2&gt;</span>
+
+  <span class="tag">&lt;form</span> <span class="attr">method</span>=<span class="val">"post"</span> <span class="attr">class</span>=<span class="val">"contact-form"</span><span class="tag">&gt;</span>
+
+    <span class="insert">&lt;!-- ADD: label + name input --&gt;</span>
+
+    <span class="insert">&lt;!-- ADD: label + email input --&gt;</span>
+
+    <span class="insert">&lt;!-- ADD: label + subject select dropdown --&gt;</span>
+
+    <span class="insert">&lt;!-- ADD: label + message textarea --&gt;</span>
+
+    <span class="insert">&lt;!-- ADD: submit button --&gt;</span>
+
+  <span class="tag">&lt;/form&gt;</span></pre>
+
+    <hr class="divider">
+    <div class="section-label">Expected Result</div>
+    <div class="expected">
+      🎉 Your portfolio is complete! Visitors scroll down to a styled contact form at the bottom. They can type their name, enter an email address (the browser checks the format), choose a subject from a dropdown, type a message in a text box, and click "Send Message". Your page is now a full personal portfolio website with seven sections: About Me, Links, Skills, Gallery, Experience Table, a two-column layout with a sidebar, and a contact form.
+    </div>
+
+    <hr class="divider">
+    <div class="section-label">⭐ Bonus</div>
+    <div class="bonus">
+      <strong>Extra challenge:</strong> Add a <code>required</code> attribute to the name, email, and message fields. Try submitting the form with them empty — the browser will automatically show an error and stop you! Then add a <code>maxlength="500"</code> to the textarea so messages can't be too long. How does that change things?
+    </div>
+  </div>
+</div>
+
+<p style="text-align:center; color:#475569; font-size:0.85rem; padding: 20px 0 60px;">
+  🎓 WebCraft — Building the next generation of web developers, one &lt;tag&gt; at a time.
+</p>
+
+</div>
+</body>
+</html>
