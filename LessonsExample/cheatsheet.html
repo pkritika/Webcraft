@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML & CSS Cheatsheet</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Fira+Code:wght@400;500&display=swap');
+
+  :root {
+    --indigo: #4f46e5;
+    --indigo-light: #818cf8;
+    --indigo-dark: #3730a3;
+    --pink: #ec4899;
+    --pink-light: #f9a8d4;
+    --green: #10b981;
+    --green-light: #6ee7b7;
+    --orange: #f97316;
+    --orange-light: #fdba74;
+    --bg: #0f0f1a;
+    --card: #1a1a2e;
+    --card2: #16213e;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  header h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--indigo-light), var(--pink), var(--orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+  }
+
+  header p {
+    color: var(--muted);
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+  }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    padding: 0.5rem 1.4rem;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: var(--card);
+    color: var(--muted);
+  }
+
+  .tab-btn.html.active, .tab-btn.html:hover { background: var(--indigo); color: white; border-color: var(--indigo-light); }
+  .tab-btn.css.active, .tab-btn.css:hover { background: var(--pink); color: white; border-color: var(--pink-light); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .card-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .card-header h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Color themes per category */
+  .theme-indigo .card-icon { background: rgba(79,70,229,0.2); color: var(--indigo-light); }
+  .theme-indigo .card-header h2 { color: var(--indigo-light); }
+  .theme-indigo .tag { background: rgba(79,70,229,0.15); color: var(--indigo-light); border-color: rgba(79,70,229,0.3); }
+
+  .theme-pink .card-icon { background: rgba(236,72,153,0.2); color: var(--pink-light); }
+  .theme-pink .card-header h2 { color: var(--pink-light); }
+  .theme-pink .tag { background: rgba(236,72,153,0.15); color: var(--pink-light); border-color: rgba(236,72,153,0.3); }
+
+  .theme-green .card-icon { background: rgba(16,185,129,0.2); color: var(--green-light); }
+  .theme-green .card-header h2 { color: var(--green-light); }
+  .theme-green .tag { background: rgba(16,185,129,0.15); color: var(--green-light); border-color: rgba(16,185,129,0.3); }
+
+  .theme-orange .card-icon { background: rgba(249,115,22,0.2); color: var(--orange-light); }
+  .theme-orange .card-header h2 { color: var(--orange-light); }
+  .theme-orange .tag { background: rgba(249,115,22,0.15); color: var(--orange-light); border-color: rgba(249,115,22,0.3); }
+
+  .entry { margin-bottom: 0.85rem; }
+  .entry:last-child { margin-bottom: 0; }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.78rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    border: 1px solid;
+    margin-bottom: 0.25rem;
+  }
+
+  .entry p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-top: 0.2rem;
+  }
+
+  code {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    background: rgba(255,255,255,0.07);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    color: #cbd5e1;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .pill {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.07);
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>&lt;/&gt; Web Dev Cheatsheet</h1>
+  <p>HTML & CSS quick reference — redesigned for humans</p>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn html active" onclick="showTab('html')">⚡ HTML</button>
+  <button class="tab-btn css active" style="background:var(--pink);color:white;border-color:var(--pink-light)" onclick="showTab('css')">🎨 CSS</button>
+</div>
+
+<!-- HTML TAB -->
+<div class="tab-content active" id="tab-html">
+  <div class="grid">
+
+    <!-- Basic Structure -->
+    <div class="card theme-indigo">
+      <div class="card-header">
+        <div class="card-icon">🏗</div>
+        <h2>Document Structure</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;html&gt;&lt;/html&gt;</span><p>Root element of the HTML page</p></div>
+      <div class="entry"><span class="tag">&lt;head&gt;&lt;/head&gt;</span><p>Contains meta info, title, links — not displayed</p></div>
+      <div class="entry"><span class="tag">&lt;title&gt;&lt;/title&gt;</span><p>Page title shown in browser tab & bookmarks</p></div>
+      <div class="entry"><span class="tag">&lt;body&gt;&lt;/body&gt;</span><p>All visible page content goes here</p></div>
+    </div>
+
+    <!-- Text -->
+    <div class="card theme-pink">
+      <div class="card-header">
+        <div class="card-icon">Tt</div>
+        <h2>Text Tags</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;h1&gt; – &lt;h6&gt;</span><p>Headings — H1 largest, H6 smallest</p></div>
+      <div class="entry"><span class="tag">&lt;p&gt;&lt;/p&gt;</span><p>Creates a paragraph</p></div>
+      <div class="entry"><span class="tag">&lt;strong&gt;</span> / <span class="tag">&lt;em&gt;</span><p>Bold / Italic emphasis (semantic)</p></div>
+      <div class="entry"><span class="tag">&lt;pre&gt;</span> / <span class="tag">&lt;code&gt;</span><p>Preformatted or monospace code text</p></div>
+      <div class="entry"><span class="tag">&lt;br&gt;</span><p>Line break (no closing tag)</p></div>
+      <div class="entry"><span class="tag">&lt;blockquote&gt;</span><p>Indented block quote from both sides</p></div>
+    </div>
+
+    <!-- Links -->
+    <div class="card theme-green">
+      <div class="card-header">
+        <div class="card-icon">🔗</div>
+        <h2>Links</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;a href="URL"&gt;</span><p>Creates a hyperlink to a URL</p></div>
+      <div class="entry"><span class="tag">&lt;a href="mailto:..."&gt;</span><p>Hyperlink that opens an email client</p></div>
+      <div class="entry"><span class="tag">&lt;a name="NAME"&gt;</span><p>Creates an anchor/target within the page</p></div>
+      <div class="entry"><span class="tag">&lt;a href="#NAME"&gt;</span><p>Links to an anchor on the same page</p></div>
+    </div>
+
+    <!-- Images -->
+    <div class="card theme-orange">
+      <div class="card-header">
+        <div class="card-icon">🖼</div>
+        <h2>Images</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;img src="URL" /&gt;</span><p>Embeds an image from a URL</p></div>
+      <div class="entry"><span class="tag">alt=?</span><p>Alternate text — required for accessibility (ADA)</p></div>
+      <div class="entry"><span class="tag">width=? height=?</span><p>Sets image dimensions in pixels</p></div>
+      <div class="entry"><span class="tag">&lt;hr&gt;</span><p>Horizontal rule divider line</p></div>
+    </div>
+
+    <!-- Lists -->
+    <div class="card theme-indigo">
+      <div class="card-header">
+        <div class="card-icon">☰</div>
+        <h2>Lists</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;ul&gt;&lt;/ul&gt;</span><p>Unordered (bulleted) list</p></div>
+      <div class="entry"><span class="tag">&lt;ol start=?&gt;&lt;/ol&gt;</span><p>Ordered (numbered) list — start sets first number</p></div>
+      <div class="entry"><span class="tag">&lt;li&gt;&lt;/li&gt;</span><p>Individual list item</p></div>
+      <div class="entry"><span class="tag">&lt;dl&gt; &lt;dt&gt; &lt;dd&gt;</span><p>Definition list with terms and descriptions</p></div>
+    </div>
+
+    <!-- Layout -->
+    <div class="card theme-pink">
+      <div class="card-header">
+        <div class="card-icon">⬜</div>
+        <h2>Layout & Formatting</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;div&gt;&lt;/div&gt;</span><p>Block-level container, styled with CSS</p></div>
+      <div class="entry"><span class="tag">&lt;span&gt;&lt;/span&gt;</span><p>Inline container, styled with CSS</p></div>
+    </div>
+
+    <!-- Tables -->
+    <div class="card theme-green">
+      <div class="card-header">
+        <div class="card-icon">⊞</div>
+        <h2>Tables (for data)</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;table&gt;</span><p>Creates a table</p></div>
+      <div class="entry"><span class="tag">&lt;tr&gt;</span><p>Table row</p></div>
+      <div class="entry"><span class="tag">&lt;td&gt;</span><p>Table cell</p></div>
+      <div class="entry"><span class="tag">&lt;th&gt;</span><p>Header cell — bold & centered</p></div>
+      <div class="entry">
+        <p>Attributes: <code>border</code>, <code>cellspacing</code>, <code>cellpadding</code>, <code>colspan</code>, <code>rowspan</code>, <code>width</code></p>
+      </div>
+    </div>
+
+    <!-- Forms -->
+    <div class="card theme-orange">
+      <div class="card-header">
+        <div class="card-icon">📝</div>
+        <h2>Forms</h2>
+      </div>
+      <div class="entry"><span class="tag">&lt;form&gt;&lt;/form&gt;</span><p>Defines a form</p></div>
+      <div class="entry"><span class="tag">&lt;input type="text"&gt;</span><p>Single-line text field</p></div>
+      <div class="entry"><span class="tag">&lt;input type="checkbox"&gt;</span><p>Checkbox — add <code>checked</code> to pre-check</p></div>
+      <div class="entry"><span class="tag">&lt;input type="radio"&gt;</span><p>Radio button</p></div>
+      <div class="entry"><span class="tag">&lt;input type="submit"&gt;</span><p>Submit button — <code>value</code> sets label</p></div>
+      <div class="entry"><span class="tag">&lt;textarea&gt;</span><p>Multi-line text box — <code>cols</code> × <code>rows</code></p></div>
+      <div class="entry"><span class="tag">&lt;select&gt; &lt;option&gt;</span><p>Dropdown or scrolling menu</p></div>
+      <div class="entry">
+        <p style="margin-top:0.5rem">HTML5 input types:</p>
+        <div class="pill-row">
+          <span class="pill">email</span><span class="pill">url</span><span class="pill">number</span>
+          <span class="pill">range</span><span class="pill">date</span><span class="pill">search</span><span class="pill">color</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CSS TAB (always shown since both tabs are "active" by default — we'll fix with JS) -->
+<div class="tab-content" id="tab-css">
+  <div class="grid">
+
+    <!-- Font -->
+    <div class="card theme-indigo">
+      <div class="card-header">
+        <div class="card-icon">Aa</div>
+        <h2>Font Properties</h2>
+      </div>
+      <div class="entry"><span class="tag">font-family</span><p>Sets typeface: <code>font-family: Arial, sans-serif;</code></p></div>
+      <div class="entry"><span class="tag">font-size</span><p>Size in px, pt, em, %, or keywords like <code>large</code></p></div>
+      <div class="entry"><span class="tag">font-weight</span><p><code>normal</code>, <code>bold</code>, or numeric 100–900</p></div>
+      <div class="entry"><span class="tag">font-style</span><p><code>normal</code>, <code>italic</code>, <code>oblique</code></p></div>
+      <div class="entry"><span class="tag">font-variant</span><p><code>normal</code> or <code>small-caps</code></p></div>
+      <div class="entry"><span class="tag">font</span><p>Shorthand: <code>italic bold 12pt/14pt Times, serif</code></p></div>
+    </div>
+
+    <!-- Color & Background -->
+    <div class="card theme-pink">
+      <div class="card-header">
+        <div class="card-icon">🎨</div>
+        <h2>Color & Background</h2>
+      </div>
+      <div class="entry"><span class="tag">color</span><p>Text color — name or hex: <code>color: #000080;</code></p></div>
+      <div class="entry"><span class="tag">background-color</span><p>Element background color</p></div>
+      <div class="entry"><span class="tag">background-image</span><p><code>url(/path/to/img.gif)</code></p></div>
+      <div class="entry"><span class="tag">background-repeat</span><p><code>repeat</code>, <code>repeat-x</code>, <code>repeat-y</code>, <code>no-repeat</code></p></div>
+      <div class="entry"><span class="tag">background-attachment</span><p><code>scroll</code> or <code>fixed</code></p></div>
+      <div class="entry"><span class="tag">background</span><p>Shorthand combining all background properties</p></div>
+    </div>
+
+    <!-- Text -->
+    <div class="card theme-green">
+      <div class="card-header">
+        <div class="card-icon">¶</div>
+        <h2>Text Properties</h2>
+      </div>
+      <div class="entry"><span class="tag">text-align</span><p><code>left</code>, <code>center</code>, <code>right</code>, <code>justify</code></p></div>
+      <div class="entry"><span class="tag">text-decoration</span><p><code>underline</code>, <code>overline</code>, <code>line-through</code>, <code>none</code></p></div>
+      <div class="entry"><span class="tag">text-transform</span><p><code>uppercase</code>, <code>lowercase</code>, <code>capitalize</code></p></div>
+      <div class="entry"><span class="tag">text-indent</span><p>First-line indent: <code>text-indent: 5em;</code></p></div>
+      <div class="entry"><span class="tag">line-height</span><p>Line spacing: <code>line-height: 200%;</code></p></div>
+      <div class="entry"><span class="tag">letter-spacing</span><p>Space between chars: <code>0.1em</code></p></div>
+      <div class="entry"><span class="tag">word-spacing</span><p>Space between words: <code>0.4em</code></p></div>
+      <div class="entry"><span class="tag">vertical-align</span><p><code>middle</code>, <code>top</code>, <code>super</code>, or %</p></div>
+    </div>
+
+    <!-- Box Model -->
+    <div class="card theme-orange">
+      <div class="card-header">
+        <div class="card-icon">⊡</div>
+        <h2>Box Model</h2>
+      </div>
+      <div class="entry"><span class="tag">margin</span><p>Outside spacing — shorthand: <code>top right bottom left</code></p></div>
+      <div class="entry"><span class="tag">padding</span><p>Inner spacing between content and border</p></div>
+      <div class="entry"><span class="tag">width / height</span><p>px, %, or <code>auto</code></p></div>
+      <div class="entry"><span class="tag">float</span><p><code>left</code>, <code>right</code>, <code>none</code> — wraps text around element</p></div>
+      <div class="entry"><span class="tag">clear</span><p>Prevents floating elements on sides: <code>left</code>, <code>right</code>, <code>none</code></p></div>
+    </div>
+
+    <!-- Borders -->
+    <div class="card theme-indigo">
+      <div class="card-header">
+        <div class="card-icon">▣</div>
+        <h2>Borders</h2>
+      </div>
+      <div class="entry"><span class="tag">border</span><p>Shorthand: <code>10px solid red</code></p></div>
+      <div class="entry"><span class="tag">border-width</span><p>Thickness — one value or top/right/bottom/left</p></div>
+      <div class="entry"><span class="tag">border-style</span><p><code>solid</code>, <code>dashed</code>, <code>dotted</code>, <code>double</code>, <code>none</code></p></div>
+      <div class="entry"><span class="tag">border-color</span><p>Color by name or hex value</p></div>
+      <div class="entry">
+        <p>Individual sides: <code>border-top</code>, <code>border-right</code>, <code>border-bottom</code>, <code>border-left</code></p>
+      </div>
+    </div>
+
+    <!-- Lists CSS -->
+    <div class="card theme-green">
+      <div class="card-header">
+        <div class="card-icon">☰</div>
+        <h2>List Styles</h2>
+      </div>
+      <div class="entry"><span class="tag">list-style-type</span>
+        <div class="pill-row">
+          <span class="pill">disc</span><span class="pill">square</span><span class="pill">none</span>
+          <span class="pill">decimal</span><span class="pill">upper-alpha</span><span class="pill">lower-roman</span>
+        </div>
+      </div>
+      <div class="entry"><span class="tag">list-style-image</span><p>Custom marker: <code>url(check.gif)</code></p></div>
+      <div class="entry"><span class="tag">list-style-position</span><p><code>inside</code> wraps text under marker; <code>outside</code> is default</p></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Fix initial state — only show HTML by default
+  document.getElementById('tab-css').classList.remove('active');
+  document.querySelector('.tab-btn.css').classList.remove('active');
+  document.querySelector('.tab-btn.css').style = '';
+
+  function showTab(name) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.style = '';
+      });
+      this.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
